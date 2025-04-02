@@ -18,3 +18,13 @@ C:\Users\Артём\source\repos\ZombieSlayer(3)\ZombieSlayer\ZombieSlayer\obj\D
 C:\Users\Артём\source\repos\ZombieSlayer(3)\ZombieSlayer\ZombieSlayer\obj\Debug\ZombieSlayer.csproj.CoreCompileInputs.cache
 C:\Users\Артём\source\repos\ZombieSlayer(3)\ZombieSlayer\ZombieSlayer\obj\Debug\ZombieSlayer.exe
 C:\Users\Артём\source\repos\ZombieSlayer(3)\ZombieSlayer\ZombieSlayer\obj\Debug\ZombieSlayer.pdb
+C:\Users\Артём\Documents\GitHub\project_2s_ZombieSlayer\ZombieSlayer\ZombieSlayer\bin\Debug\ZombieSlayer.exe.config
+C:\Users\Артём\Documents\GitHub\project_2s_ZombieSlayer\ZombieSlayer\ZombieSlayer\bin\Debug\ZombieSlayer.exe
+C:\Users\Артём\Documents\GitHub\project_2s_ZombieSlayer\ZombieSlayer\ZombieSlayer\bin\Debug\ZombieSlayer.pdb
+C:\Users\Артём\Documents\GitHub\project_2s_ZombieSlayer\ZombieSlayer\ZombieSlayer\obj\Debug\ZombieSlayer.csproj.AssemblyReference.cache
+C:\Users\Артём\Documents\GitHub\project_2s_ZombieSlayer\ZombieSlayer\ZombieSlayer\obj\Debug\ZombieSlayer.Form1.resources
+C:\Users\Артём\Documents\GitHub\project_2s_ZombieSlayer\ZombieSlayer\ZombieSlayer\obj\Debug\ZombieSlayer.Properties.Resources.resources
+C:\Users\Артём\Documents\GitHub\project_2s_ZombieSlayer\ZombieSlayer\ZombieSlayer\obj\Debug\ZombieSlayer.csproj.GenerateResource.cache
+C:\Users\Артём\Documents\GitHub\project_2s_ZombieSlayer\ZombieSlayer\ZombieSlayer\obj\Debug\ZombieSlayer.csproj.CoreCompileInputs.cache
+C:\Users\Артём\Documents\GitHub\project_2s_ZombieSlayer\ZombieSlayer\ZombieSlayer\obj\Debug\ZombieSlayer.exe
+C:\Users\Артём\Documents\GitHub\project_2s_ZombieSlayer\ZombieSlayer\ZombieSlayer\obj\Debug\ZombieSlayer.pdb

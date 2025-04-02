@@ -1,22 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\source\\repos\\ZombieSlayer(3)\\ZombieSlayer\\",
+  "WorkspaceRootPath": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Documents\\GitHub\\project_2s_ZombieSlayer\\ZombieSlayer\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{880C0EFC-C4CD-40CF-9A1D-42D3DE3EF20E}|ZombieSlayer\\ZombieSlayer.csproj|c:\\users\\\u0430\u0440\u0442\u0451\u043C\\source\\repos\\zombieslayer(3)\\zombieslayer\\zombieslayer\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{880C0EFC-C4CD-40CF-9A1D-42D3DE3EF20E}|ZombieSlayer\\ZombieSlayer.csproj|c:\\users\\\u0430\u0440\u0442\u0451\u043C\\documents\\github\\project_2s_zombieslayer\\zombieslayer\\zombieslayer\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{880C0EFC-C4CD-40CF-9A1D-42D3DE3EF20E}|ZombieSlayer\\ZombieSlayer.csproj|solutionrelative:zombieslayer\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{880C0EFC-C4CD-40CF-9A1D-42D3DE3EF20E}|ZombieSlayer\\ZombieSlayer.csproj|C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\source\\repos\\ZombieSlayer(3)\\ZombieSlayer\\zombieslayer\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{880C0EFC-C4CD-40CF-9A1D-42D3DE3EF20E}|ZombieSlayer\\ZombieSlayer.csproj|solutionrelative:zombieslayer\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{880C0EFC-C4CD-40CF-9A1D-42D3DE3EF20E}|ZombieSlayer\\ZombieSlayer.csproj|C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\source\\repos\\ZombieSlayer(3)\\ZombieSlayer\\zombieslayer\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{880C0EFC-C4CD-40CF-9A1D-42D3DE3EF20E}|ZombieSlayer\\ZombieSlayer.csproj|C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Documents\\GitHub\\project_2s_ZombieSlayer\\ZombieSlayer\\zombieslayer\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{880C0EFC-C4CD-40CF-9A1D-42D3DE3EF20E}|ZombieSlayer\\ZombieSlayer.csproj|solutionrelative:zombieslayer\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{880C0EFC-C4CD-40CF-9A1D-42D3DE3EF20E}|ZombieSlayer\\ZombieSlayer.csproj|C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\source\\repos\\ZombieSlayer(3)\\ZombieSlayer\\zombieslayer\\bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{880C0EFC-C4CD-40CF-9A1D-42D3DE3EF20E}|ZombieSlayer\\ZombieSlayer.csproj|solutionrelative:zombieslayer\\bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{880C0EFC-C4CD-40CF-9A1D-42D3DE3EF20E}|ZombieSlayer\\ZombieSlayer.csproj|C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Documents\\GitHub\\project_2s_ZombieSlayer\\ZombieSlayer\\ZombieSlayer\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{880C0EFC-C4CD-40CF-9A1D-42D3DE3EF20E}|ZombieSlayer\\ZombieSlayer.csproj|solutionrelative:ZombieSlayer\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{880C0EFC-C4CD-40CF-9A1D-42D3DE3EF20E}|ZombieSlayer\\ZombieSlayer.csproj|C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Documents\\GitHub\\project_2s_ZombieSlayer\\ZombieSlayer\\ZombieSlayer\\Bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{880C0EFC-C4CD-40CF-9A1D-42D3DE3EF20E}|ZombieSlayer\\ZombieSlayer.csproj|solutionrelative:ZombieSlayer\\Bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,11 +34,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\source\\repos\\ZombieSlayer(3)\\ZombieSlayer\\ZombieSlayer\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Documents\\GitHub\\project_2s_ZombieSlayer\\ZombieSlayer\\ZombieSlayer\\Program.cs",
               "RelativeDocumentMoniker": "ZombieSlayer\\Program.cs",
-              "ToolTip": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\source\\repos\\ZombieSlayer(3)\\ZombieSlayer\\ZombieSlayer\\Program.cs",
+              "ToolTip": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Documents\\GitHub\\project_2s_ZombieSlayer\\ZombieSlayer\\ZombieSlayer\\Program.cs",
               "RelativeToolTip": "ZombieSlayer\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -48,9 +48,9 @@
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "Bullet.cs",
-              "DocumentMoniker": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\source\\repos\\ZombieSlayer(3)\\ZombieSlayer\\ZombieSlayer\\Bullet.cs",
+              "DocumentMoniker": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Documents\\GitHub\\project_2s_ZombieSlayer\\ZombieSlayer\\ZombieSlayer\\Bullet.cs",
               "RelativeDocumentMoniker": "ZombieSlayer\\Bullet.cs",
-              "ToolTip": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\source\\repos\\ZombieSlayer(3)\\ZombieSlayer\\ZombieSlayer\\Bullet.cs",
+              "ToolTip": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Documents\\GitHub\\project_2s_ZombieSlayer\\ZombieSlayer\\ZombieSlayer\\Bullet.cs",
               "RelativeToolTip": "ZombieSlayer\\Bullet.cs",
               "ViewState": "AgIAABYAAAAAAAAAAAAQwCYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -60,23 +60,23 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Form1.cs",
-              "DocumentMoniker": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\source\\repos\\ZombieSlayer(3)\\ZombieSlayer\\ZombieSlayer\\Form1.cs",
+              "DocumentMoniker": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Documents\\GitHub\\project_2s_ZombieSlayer\\ZombieSlayer\\ZombieSlayer\\Form1.cs",
               "RelativeDocumentMoniker": "ZombieSlayer\\Form1.cs",
-              "ToolTip": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\source\\repos\\ZombieSlayer(3)\\ZombieSlayer\\ZombieSlayer\\Form1.cs",
+              "ToolTip": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Documents\\GitHub\\project_2s_ZombieSlayer\\ZombieSlayer\\ZombieSlayer\\Form1.cs",
               "RelativeToolTip": "ZombieSlayer\\Form1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAG0AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAO0AAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-12T14:27:47.129Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
-              "DocumentMoniker": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\source\\repos\\ZombieSlayer(3)\\ZombieSlayer\\ZombieSlayer\\Form1.cs",
+              "DocumentMoniker": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Documents\\GitHub\\project_2s_ZombieSlayer\\ZombieSlayer\\ZombieSlayer\\Form1.cs",
               "RelativeDocumentMoniker": "ZombieSlayer\\Form1.cs",
-              "ToolTip": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\source\\repos\\ZombieSlayer(3)\\ZombieSlayer\\ZombieSlayer\\Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
-              "RelativeToolTip": "ZombieSlayer\\Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "ToolTip": "C:\\Users\\\u0410\u0440\u0442\u0451\u043C\\Documents\\GitHub\\project_2s_ZombieSlayer\\ZombieSlayer\\ZombieSlayer\\Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]*",
+              "RelativeToolTip": "ZombieSlayer\\Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-12T14:15:51.974Z"
             }

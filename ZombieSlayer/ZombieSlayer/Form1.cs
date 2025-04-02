@@ -13,8 +13,6 @@ namespace ZombieSlayer
 {
     public partial class Form1 : Form
     {
-
-
         bool goLeft, goRight, goUp, goDown, gameOver;
         string facing = "up";
         int playerHealth = 100;
@@ -22,8 +20,21 @@ namespace ZombieSlayer
         int ammo = 10;
         int score = 0;
         int zombieSpeed = 3;
+        int bigZombieSpeed = 2; // Большие зомби медленнее
+        int smallZombieSpeed = 5; // Маленькие зомби быстрее
+        int bigZombieHealth = 3; // Нужно попасть 3 раза, чтобы убить
+        int smallZombieHealth = 1; // Маленькие умирают с одного попадания
         Random rnd = new Random();
         List<PictureBox> zombiesList = new List<PictureBox>();
+
+        // Перечисление для типов зомби
+        private enum ZombieType
+        {
+            Normal,
+            Big,
+            Small
+        }
+
         public Form1()
         {
             InitializeComponent();
@@ -32,7 +43,7 @@ namespace ZombieSlayer
 
         private void MainTimerEvent(object sender, EventArgs e)
         {
-            if(playerHealth >= 1)
+            if (playerHealth >= 1)
             {
                 HealthBar.Value = playerHealth;
             }
@@ -42,17 +53,19 @@ namespace ZombieSlayer
                 player.BackColor = Color.Red;
                 GameTimer.Stop();
             }
+
             txtAmmo.Text = "Ammo: " + ammo;
             txtScore.Text = "Kills: " + score;
-            if(goLeft && player.Left > 0)
+
+            if (goLeft && player.Left > 0)
             {
                 player.Left -= speed;
             }
-            if(goRight && player.Left + player.Width < this.ClientSize.Width)
+            if (goRight && player.Left + player.Width < this.ClientSize.Width)
             {
                 player.Left += speed;
             }
-            if(goUp && player.Top > 47)
+            if (goUp && player.Top > 47)
             {
                 player.Top -= speed;
             }
@@ -63,7 +76,7 @@ namespace ZombieSlayer
 
             foreach (Control x in this.Controls)
             {
-                if(x is PictureBox && (string)x.Tag == "ammo")
+                if (x is PictureBox && (string)x.Tag == "ammo")
                 {
                     if (player.Bounds.IntersectsWith(x.Bounds))
                     {
@@ -73,74 +86,199 @@ namespace ZombieSlayer
                     }
                 }
 
-                if(x is PictureBox && x.Tag is string tag && tag == "zombie")
+                if (x is PictureBox && x.Tag is string zombieTag && (zombieTag == "zombie" || zombieTag == "bigZombie" || zombieTag == "smallZombie"))
                 {
+                    // Определяем скорость и урон в зависимости от типа зомби
+                    int currentZombieSpeed = zombieSpeed;
+                    int damage = 1;
+
+                    if (zombieTag == "bigZombie")
+                    {
+                        currentZombieSpeed = bigZombieSpeed;
+                        damage = 2;
+                    }
+                    else if (zombieTag == "smallZombie")
+                    {
+                        currentZombieSpeed = smallZombieSpeed;
+                        damage = 1;
+                    }
 
                     if (player.Bounds.IntersectsWith(x.Bounds))
                     {
-                        playerHealth -= 1;
+                        playerHealth -= damage;
                     }
+
                     // Двигаем зомби по направлению к игроку
                     if (x.Left > player.Left)
                     {
-                        x.Left -= zombieSpeed;
-                        ((PictureBox)x).Image = Properties.Resources.zLeft;
-                        
+                        x.Left -= currentZombieSpeed;
+                        SetZombieImage((PictureBox)x, "left");
                     }
                     if (x.Left < player.Left)
                     {
-                        x.Left += zombieSpeed;
-                        ((PictureBox)x).Image = Properties.Resources.zRight;
-
+                        x.Left += currentZombieSpeed;
+                        SetZombieImage((PictureBox)x, "right");
                     }
                     if (x.Top > player.Top)
                     {
-                        x.Top -= zombieSpeed;
-                        ((PictureBox)x).Image = Properties.Resources.zUp;
-
+                        x.Top -= currentZombieSpeed;
+                        SetZombieImage((PictureBox)x, "up");
                     }
                     if (x.Top < player.Top)
                     {
-                        x.Top += zombieSpeed;
-                        ((PictureBox)x).Image = Properties.Resources.zDown;
-
+                        x.Top += currentZombieSpeed;
+                        SetZombieImage((PictureBox)x, "down");
                     }
-
                 }
 
-                foreach(Control j in this.Controls)
+                foreach (Control j in this.Controls)
                 {
-                    if (j is PictureBox && (string)j.Tag == "bullet" && x is PictureBox && (string)x.Tag == "zombie")
+                    if (j is PictureBox && (string)j.Tag == "bullet" && x is PictureBox && x.Tag is string bulletTargetTag &&
+                        (bulletTargetTag == "zombie" || bulletTargetTag == "bigZombie" || bulletTargetTag == "smallZombie"))
                     {
-                        // Проверяем столкновение пули и зомби
                         if (x.Bounds.IntersectsWith(j.Bounds))
                         {
-                            score++;
-
-                            // Удаляем пулю и зомби из формы и списка
+                            // Удаляем пулю
                             this.Controls.Remove(j);
-                            ((PictureBox)j).Dispose(); 
+                            ((PictureBox)j).Dispose();
 
-                            this.Controls.Remove(x);
-                            ((PictureBox)x).Dispose();
+                            // Обработка попадания в зависимости от типа зомби
+                            bool zombieKilled = false;
 
-                            zombiesList.Remove((PictureBox)x);
+                            if (bulletTargetTag == "bigZombie")
+                            {
+                                if (x is PictureBox pb && pb.Tag is "bigZombie")
+                                {
+                                    if (pb.Name.StartsWith("hits:"))
+                                    {
+                                        int hits = int.Parse(pb.Name.Split(':')[1]);
+                                        hits++;
+                                        pb.Name = $"hits:{hits}";
+                                        if (hits >= bigZombieHealth)
+                                        {
+                                            zombieKilled = true;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        pb.Name = "hits:1";
+                                    }
+                                }
+                            }
+                            else if (bulletTargetTag == "smallZombie")
+                            {
+                                zombieKilled = true; // Маленькие умирают с одного попадания
+                            }
+                            else // Обычный зомби
+                            {
+                                zombieKilled = true;
+                            }
 
-                            // Создаем нового зомби
-                            MakeBigZombies();
-
+                            if (zombieKilled)
+                            {
+                                RemoveZombie(x);
+                                score++;
+                                MakeZombies();
+                            }
                         }
                     }
                 }
-
             }
+        }
+        // Новый метод для установки изображения зомби в зависимости от типа и направления
+        private void SetZombieImage(PictureBox zombie, string direction)
+        {
+            string tag = zombie.Tag as string;
 
-
+            if (tag == "bigZombie")
+            {
+                switch (direction)
+                {
+                  
+                }
+            }
+            else if (tag == "smallZombie")
+            {
+                switch (direction)
+                {
+                   
+                }
+            }
+            else // Обычный зомби
+            {
+                switch (direction)
+                {
+                    case "left": zombie.Image = Properties.Resources.zLeft; break;
+                    case "right": zombie.Image = Properties.Resources.zRight; break;
+                    case "up": zombie.Image = Properties.Resources.zUp; break;
+                    case "down": zombie.Image = Properties.Resources.zDown; break;
+                }
+            }
         }
 
+        // Метод для удаления зомби
+        private void RemoveZombie(Control zombie)
+        {
+            this.Controls.Remove(zombie);
+            ((PictureBox)zombie).Dispose();
+            zombiesList.Remove((PictureBox)zombie);
+        }
+
+        // Модифицированный метод создания зомби с разными вероятностями
+        private void MakeZombies()
+        {
+            // Генерируем случайное число для определения типа зомби
+            int chance = rnd.Next(100);
+            ZombieType zombieType;
+
+            if (chance < 50) // 65% обычный
+            {
+                zombieType = ZombieType.Normal;
+            }
+            else if (chance < 75) // 20% большой (65+20=85)
+            {
+                zombieType = ZombieType.Big;
+            }
+            else // 15% маленький (остаток)
+            {
+                zombieType = ZombieType.Small;
+            }
+
+            PictureBox zombie = new PictureBox();
+
+            // Настраиваем зомби в зависимости от типа
+            switch (zombieType)
+            {
+                case ZombieType.Big:
+                    zombie.Tag = "bigZombie";
+                    zombie.BackColor = Color.White;
+                    zombie.Size = new Size(110, 110); // Больший размер
+                    break;
+
+                case ZombieType.Small:
+                    zombie.Tag = "smallZombie";
+                    zombie.BackColor = Color.White;
+                    zombie.Size = new Size(50, 50); // Меньший размер
+                    break;
+
+                default: // Normal
+                    zombie.Tag = "zombie";
+                    zombie.Image = Properties.Resources.zDown;
+                    zombie.SizeMode = PictureBoxSizeMode.AutoSize;
+                    break;
+            }
+
+            zombie.Left = rnd.Next(0, 900);
+            zombie.Top = rnd.Next(0, 800);
+            zombiesList.Add(zombie);
+            this.Controls.Add(zombie);
+            player.BringToFront();
+        }
+
+        // Остальные методы остаются без изменений
         private void KeyIsDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.A)
+            if (e.KeyCode == Keys.A)
             {
                 goLeft = true;
                 facing = "left";
@@ -185,12 +323,12 @@ namespace ZombieSlayer
                 goDown = false;
             }
 
-            if(e.KeyCode == Keys.Space && ammo > 0 && gameOver == false)
+            if (e.KeyCode == Keys.Space && ammo > 0 && gameOver == false)
             {
                 ammo--;
                 ShootBullet(facing);
 
-                if(ammo < 1)
+                if (ammo < 1)
                 {
                     DropAmmo();
                 }
@@ -200,8 +338,8 @@ namespace ZombieSlayer
             {
                 RestartGame();
             }
-
         }
+
         private void ShootBullet(string direction)
         {
             Bullet shootBullet = new Bullet();
@@ -209,37 +347,10 @@ namespace ZombieSlayer
             shootBullet.bulletLeft = player.Left + (player.Width / 2);
             shootBullet.bulletTop = player.Top + (player.Height / 2);
             shootBullet.MakeBullet(this);
-
-        }
-        private void MakeZombies()
-        {
-            PictureBox zombie = new PictureBox();
-            zombie.Image = Properties.Resources.zDown;
-            zombie.Tag = "zombie";
-            zombie.Left = rnd.Next(0,900);
-            zombie.Top = rnd.Next(0,800);
-            zombie.SizeMode = PictureBoxSizeMode.AutoSize;
-            zombiesList.Add(zombie);
-            this.Controls.Add(zombie);
-            player.BringToFront();
-        }
-
-        private void MakeBigZombies()
-        {
-            PictureBox zombieB = new PictureBox();
-            zombieB.Size = new Size(100, 100);
-            zombieB.Tag = "zombie";
-            zombieB.Left = rnd.Next(0, 900);
-            zombieB.Top = rnd.Next(0, 800);
-            zombieB.SizeMode = PictureBoxSizeMode.AutoSize;
-            zombiesList.Add(zombieB);
-            this.Controls.Add(zombieB);
-            player.BringToFront();
         }
 
         private void DropAmmo()
         {
-            // Создаем объект патрона и настраиваем его параметры
             PictureBox ammo = new PictureBox
             {
                 BackColor = Color.White,
@@ -248,11 +359,9 @@ namespace ZombieSlayer
                 Tag = "ammo"
             };
 
-            // Случайное позиционирование патрона на форме
             ammo.Left = rnd.Next(10, this.ClientSize.Width - ammo.Width);
             ammo.Top = rnd.Next(60, this.ClientSize.Height - ammo.Height);
 
-            // Добавляем патрон на форму и корректируем порядок отображения
             this.Controls.Add(ammo);
             ammo.BringToFront();
             player.BringToFront();
@@ -263,16 +372,16 @@ namespace ZombieSlayer
             player.Image = Properties.Resources.pUp;
             player.BackColor = Color.Transparent;
 
-            foreach(PictureBox i in zombiesList)
+            foreach (PictureBox i in zombiesList)
             {
                 this.Controls.Remove(i);
             }
 
             zombiesList.Clear();
 
-            for(int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
-                MakeBigZombies();
+                MakeZombies();
             }
 
             goUp = false;
@@ -286,7 +395,6 @@ namespace ZombieSlayer
             ammo = 10;
 
             GameTimer.Start();
-
         }
     }
 }
