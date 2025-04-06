@@ -39,6 +39,7 @@ namespace ZombieSlayer
         {
             InitializeComponent();
             RestartGame();
+            this.KeyPreview = true;
         }
 
         private void MainTimerEvent(object sender, EventArgs e)
@@ -304,6 +305,35 @@ namespace ZombieSlayer
             }
         }
 
+        private int cnt = 1;
+        private void btnPause_Click(object sender, EventArgs e)
+        {
+            if (cnt % 2 == 0)
+            {
+                GameTimer.Stop();
+                cnt++;
+            }
+            else
+            {
+                GameTimer.Start();
+                cnt++;
+            }
+            this.Focus();
+        }
+
+        private void btnRestart_Click(object sender, EventArgs e)
+        {
+            RestartGame();
+            this.Focus();
+        }
+
+        private void btnMenu_Click(object sender, EventArgs e)
+        {
+            GameMenu menu = new GameMenu();
+            menu.Show();
+            this.Hide();
+        }
+
         private void KeyIsUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.A)
@@ -323,6 +353,11 @@ namespace ZombieSlayer
                 goDown = false;
             }
 
+            if (e.KeyCode == Keys.Space)
+            {
+                this.Focus();
+            }
+
             if (e.KeyCode == Keys.Space && ammo > 0 && gameOver == false)
             {
                 ammo--;
@@ -337,6 +372,11 @@ namespace ZombieSlayer
             if (e.KeyCode == Keys.Enter && gameOver == true)
             {
                 RestartGame();
+            }
+
+            if (e.KeyCode == Keys.Escape)
+            {
+                btnPause_Click(sender, e);
             }
         }
 
