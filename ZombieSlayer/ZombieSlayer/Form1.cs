@@ -24,6 +24,7 @@ namespace ZombieSlayer
         int smallZombieSpeed = 5; // Маленькие зомби быстрее
         int bigZombieHealth = 3; // Нужно попасть 3 раза, чтобы убить
         int smallZombieHealth = 1; // Маленькие умирают с одного попадания
+        bool healingBonusActive = false;
         Random rnd = new Random();
         List<PictureBox> zombiesList = new List<PictureBox>();
 
@@ -51,7 +52,7 @@ namespace ZombieSlayer
             else
             {
                 gameOver = true;
-                player.BackColor = Color.Red;
+                player.Image = Properties.Resources.DeadPlayer;
                 GameTimer.Stop();
             }
 
@@ -75,6 +76,12 @@ namespace ZombieSlayer
                 player.Top += speed;
             }
 
+            if (playerHealth < 10 && !healingBonusActive)
+            {
+                DropHealingBonus();
+                healingBonusActive = true;
+            }
+
             foreach (Control x in this.Controls)
             {
                 if (x is PictureBox && (string)x.Tag == "ammo")
@@ -84,6 +91,18 @@ namespace ZombieSlayer
                         this.Controls.Remove(x);
                         ((PictureBox)x).Dispose();
                         ammo += 5;
+                    }
+                }
+
+                if (x is PictureBox && (string)x.Tag == "healing")
+                {
+                    if (player.Bounds.IntersectsWith(x.Bounds))
+                    {
+                        this.Controls.Remove(x);
+                        ((PictureBox)x).Dispose();
+                        playerHealth = Math.Min(100, playerHealth + 20);
+                        HealthBar.Value = playerHealth;
+                        healingBonusActive = false;
                     }
                 }
 
@@ -195,14 +214,20 @@ namespace ZombieSlayer
             {
                 switch (direction)
                 {
-                  
+                    case "left": zombie.Image = Properties.Resources.BzLeft; break;
+                    case "right": zombie.Image = Properties.Resources.BzRight; break;
+                    case "up": zombie.Image = Properties.Resources.BzUp; break;
+                    case "down": zombie.Image = Properties.Resources.BzDown; break;
                 }
             }
             else if (tag == "smallZombie")
             {
                 switch (direction)
                 {
-                   
+                    case "left": zombie.Image = Properties.Resources.SzLeft; break;
+                    case "right": zombie.Image = Properties.Resources.SzRight; break;
+                    case "up": zombie.Image = Properties.Resources.SzUp; break;
+                    case "down": zombie.Image = Properties.Resources.SzDown; break;
                 }
             }
             else // Обычный зомби
@@ -252,14 +277,12 @@ namespace ZombieSlayer
             {
                 case ZombieType.Big:
                     zombie.Tag = "bigZombie";
-                    zombie.BackColor = Color.White;
                     zombie.Size = new Size(110, 110); // Больший размер
                     break;
 
                 case ZombieType.Small:
                     zombie.Tag = "smallZombie";
-                    zombie.BackColor = Color.White;
-                    zombie.Size = new Size(50, 50); // Меньший размер
+                    zombie.Size = new Size(70, 70); // Меньший размер
                     break;
 
                 default: // Normal
@@ -276,28 +299,47 @@ namespace ZombieSlayer
             player.BringToFront();
         }
 
+        private void DropHealingBonus()
+        {
+            PictureBox healing = new PictureBox
+            {
+                Image = Properties.Resources.Heal,
+                Size = new Size(30, 30),
+                SizeMode = PictureBoxSizeMode.AutoSize,
+                Tag = "healing"
+            };
+
+            // рандом на форме
+            healing.Left = rnd.Next(10, this.ClientSize.Width - healing.Width);
+            healing.Top = rnd.Next(60, this.ClientSize.Height - healing.Height);
+
+            this.Controls.Add(healing);
+            healing.BringToFront();
+            player.BringToFront();
+        }
+
         // Остальные методы остаются без изменений
         private void KeyIsDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.A)
+            if (e.KeyCode == Keys.A && !gameOver)
             {
                 goLeft = true;
                 facing = "left";
                 player.Image = Properties.Resources.pLeft;
             }
-            if (e.KeyCode == Keys.D)
+            if (e.KeyCode == Keys.D && !gameOver)
             {
                 goRight = true;
                 facing = "right";
                 player.Image = Properties.Resources.pRight;
             }
-            if (e.KeyCode == Keys.W)
+            if (e.KeyCode == Keys.W && !gameOver)
             {
                 goUp = true;
                 facing = "up";
                 player.Image = Properties.Resources.pUp;
             }
-            if (e.KeyCode == Keys.S)
+            if (e.KeyCode == Keys.S && !gameOver)
             {
                 goDown = true;
                 facing = "down";
@@ -393,7 +435,7 @@ namespace ZombieSlayer
         {
             PictureBox ammo = new PictureBox
             {
-                BackColor = Color.White,
+                Image = Properties.Resources.Ammo,
                 Size = new Size(30, 30),
                 SizeMode = PictureBoxSizeMode.AutoSize,
                 Tag = "ammo"
@@ -433,6 +475,15 @@ namespace ZombieSlayer
             playerHealth = 100;
             score = 0;
             ammo = 10;
+            bool healingBonusActive = false;
+
+            // удаление бонуса исцеления при перезапуске 
+            foreach (Control control in this.Controls.OfType<PictureBox>().Where(x => (string)x.Tag == "healing").ToList())
+            {
+                this.Controls.Remove(control);
+                control.Dispose();
+            }
+
 
             GameTimer.Start();
         }

@@ -117,7 +117,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\background.png" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\bg.png" />
   </ItemGroup>
@@ -144,6 +146,42 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\zUp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Ammo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeadPlayer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BzLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BzRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BzUp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BzDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bullet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Heal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SzUp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SzRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SzDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SzLeft.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

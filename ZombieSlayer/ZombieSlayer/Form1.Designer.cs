@@ -35,9 +35,9 @@
             this.HealthBar = new System.Windows.Forms.ProgressBar();
             this.GameTimer = new System.Windows.Forms.Timer(this.components);
             this.btnPause = new System.Windows.Forms.Button();
-            this.player = new System.Windows.Forms.PictureBox();
             this.btnRestart = new System.Windows.Forms.Button();
             this.btnMenu = new System.Windows.Forms.Button();
+            this.player = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.player)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,10 +46,9 @@
             this.txtAmmo.AutoSize = true;
             this.txtAmmo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtAmmo.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.txtAmmo.Location = new System.Drawing.Point(302, 13);
-            this.txtAmmo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.txtAmmo.Location = new System.Drawing.Point(453, 20);
             this.txtAmmo.Name = "txtAmmo";
-            this.txtAmmo.Size = new System.Drawing.Size(86, 24);
+            this.txtAmmo.Size = new System.Drawing.Size(126, 32);
             this.txtAmmo.TabIndex = 0;
             this.txtAmmo.Text = "Ammo: 0";
             // 
@@ -58,10 +57,9 @@
             this.txtScore.AutoSize = true;
             this.txtScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtScore.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.txtScore.Location = new System.Drawing.Point(419, 13);
-            this.txtScore.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.txtScore.Location = new System.Drawing.Point(628, 20);
             this.txtScore.Name = "txtScore";
-            this.txtScore.Size = new System.Drawing.Size(63, 24);
+            this.txtScore.Size = new System.Drawing.Size(99, 32);
             this.txtScore.TabIndex = 1;
             this.txtScore.Text = "Kills: 0";
             // 
@@ -70,19 +68,17 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label3.Location = new System.Drawing.Point(512, 13);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(768, 20);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 24);
+            this.label3.Size = new System.Drawing.Size(105, 32);
             this.label3.TabIndex = 2;
             this.label3.Text = "Health:";
             // 
             // HealthBar
             // 
-            this.HealthBar.Location = new System.Drawing.Point(605, 13);
-            this.HealthBar.Margin = new System.Windows.Forms.Padding(2);
+            this.HealthBar.Location = new System.Drawing.Point(908, 20);
             this.HealthBar.Name = "HealthBar";
-            this.HealthBar.Size = new System.Drawing.Size(137, 21);
+            this.HealthBar.Size = new System.Drawing.Size(206, 32);
             this.HealthBar.TabIndex = 3;
             this.HealthBar.Value = 100;
             // 
@@ -96,32 +92,22 @@
             // 
             this.btnPause.Cursor = System.Windows.Forms.Cursors.Default;
             this.btnPause.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.btnPause.Location = new System.Drawing.Point(93, 12);
+            this.btnPause.Location = new System.Drawing.Point(140, 18);
+            this.btnPause.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnPause.Name = "btnPause";
-            this.btnPause.Size = new System.Drawing.Size(75, 50);
+            this.btnPause.Size = new System.Drawing.Size(112, 77);
             this.btnPause.TabIndex = 5;
             this.btnPause.Text = "Pause";
             this.btnPause.UseVisualStyleBackColor = true;
             this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
             // 
-            // player
-            // 
-            this.player.BackColor = System.Drawing.Color.Transparent;
-            this.player.Image = global::ZombieSlayer.Properties.Resources.pUp;
-            this.player.Location = new System.Drawing.Point(466, 263);
-            this.player.Margin = new System.Windows.Forms.Padding(2);
-            this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(70, 70);
-            this.player.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.player.TabIndex = 4;
-            this.player.TabStop = false;
-            // 
             // btnRestart
             // 
             this.btnRestart.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.btnRestart.Location = new System.Drawing.Point(174, 12);
+            this.btnRestart.Location = new System.Drawing.Point(261, 18);
+            this.btnRestart.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnRestart.Name = "btnRestart";
-            this.btnRestart.Size = new System.Drawing.Size(75, 50);
+            this.btnRestart.Size = new System.Drawing.Size(112, 77);
             this.btnRestart.TabIndex = 6;
             this.btnRestart.Text = "Restart";
             this.btnRestart.UseVisualStyleBackColor = true;
@@ -130,20 +116,32 @@
             // btnMenu
             // 
             this.btnMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.btnMenu.Location = new System.Drawing.Point(12, 12);
+            this.btnMenu.Location = new System.Drawing.Point(18, 18);
+            this.btnMenu.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnMenu.Name = "btnMenu";
-            this.btnMenu.Size = new System.Drawing.Size(75, 50);
+            this.btnMenu.Size = new System.Drawing.Size(112, 77);
             this.btnMenu.TabIndex = 7;
             this.btnMenu.Text = "Menu";
             this.btnMenu.UseVisualStyleBackColor = true;
             this.btnMenu.Click += new System.EventHandler(this.btnMenu_Click);
             // 
+            // player
+            // 
+            this.player.BackColor = System.Drawing.Color.Transparent;
+            this.player.Image = global::ZombieSlayer.Properties.Resources.pUp;
+            this.player.Location = new System.Drawing.Point(699, 405);
+            this.player.Name = "player";
+            this.player.Size = new System.Drawing.Size(70, 70);
+            this.player.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.player.TabIndex = 4;
+            this.player.TabStop = false;
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(989, 666);
+            this.ClientSize = new System.Drawing.Size(1474, 1015);
             this.Controls.Add(this.btnMenu);
             this.Controls.Add(this.btnRestart);
             this.Controls.Add(this.btnPause);
@@ -153,9 +151,8 @@
             this.Controls.Add(this.txtScore);
             this.Controls.Add(this.txtAmmo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(2);
-            this.MaximumSize = new System.Drawing.Size(1005, 716);
-            this.MinimumSize = new System.Drawing.Size(1005, 683);
+            this.MaximumSize = new System.Drawing.Size(1496, 1071);
+            this.MinimumSize = new System.Drawing.Size(1496, 1021);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ZombieSlayer";
