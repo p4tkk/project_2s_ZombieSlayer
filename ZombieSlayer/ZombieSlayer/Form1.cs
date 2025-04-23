@@ -26,6 +26,8 @@ namespace ZombieSlayer
 
         private class GameSettings
         {
+            public static readonly GameSettings Instance = new GameSettings();
+
             public readonly int PlayerSpeed = 10;
             public readonly int NormalZombieSpeed = 3;
             public readonly int BigZombieSpeed = 2;
@@ -35,6 +37,8 @@ namespace ZombieSlayer
             public readonly int ZombieSpawnCount = 3;
             public readonly int AmmoDropAmount = 5;
             public readonly int HealAmount = 20;
+
+            private GameSettings() { }
         }
         #endregion
 
@@ -48,15 +52,108 @@ namespace ZombieSlayer
             public int Speed;
             public string Tag;
             public int HitsTaken;
+            public IMovementStrategy MovementStrategy;
         }
 
-        private Dictionary<ZombieType, Func<Zombie>> _zombieFactories;
-        private List<Zombie> _zombies;
+        private interface IMovementStrategy
+        {
+            void Move(Zombie zombie, Point playerPosition);
+        }
+
+        private class ChaseMovement : IMovementStrategy
+        {
+            public void Move(Zombie zombie, Point playerPosition)
+            {
+                if (zombie.PictureBox.Left > playerPosition.X)
+                {
+                    zombie.PictureBox.Left -= zombie.Speed;
+                }
+                if (zombie.PictureBox.Right < playerPosition.X)
+                {
+                    zombie.PictureBox.Left += zombie.Speed;
+                }
+                if (zombie.PictureBox.Top > playerPosition.Y)
+                {
+                    zombie.PictureBox.Top -= zombie.Speed;
+                }
+                if (zombie.PictureBox.Bottom < playerPosition.Y)
+                {
+                    zombie.PictureBox.Top += zombie.Speed;
+                }
+            }
+        }
+
+        private interface IZombieFactory
+        {
+            Zombie CreateZombie();
+        }
+
+        private class NormalZombieFactory : IZombieFactory
+        {
+            public Zombie CreateZombie()
+            {
+                return new Zombie
+                {
+                    Health = 1,
+                    Speed = GameSettings.Instance.NormalZombieSpeed,
+                    Tag = "zombie",
+                    MovementStrategy = new ChaseMovement(),
+                    PictureBox = new PictureBox
+                    {
+                        Size = new Size(80, 80),
+                        SizeMode = PictureBoxSizeMode.StretchImage,
+                        Image = Properties.Resources.zDown
+                    }
+                };
+            }
+        }
+
+        private class BigZombieFactory : IZombieFactory
+        {
+            public Zombie CreateZombie()
+            {
+                return new Zombie
+                {
+                    Health = GameSettings.Instance.BigZombieHealth,
+                    Speed = GameSettings.Instance.BigZombieSpeed,
+                    Tag = "bigZombie",
+                    HitsTaken = 0,
+                    MovementStrategy = new ChaseMovement(),
+                    PictureBox = new PictureBox
+                    {
+                        Size = new Size(110, 110),
+                        SizeMode = PictureBoxSizeMode.StretchImage,
+                        Image = Properties.Resources.BzDown
+                    }
+                };
+            }
+        }
+
+        private class SmallZombieFactory : IZombieFactory
+        {
+            public Zombie CreateZombie()
+            {
+                return new Zombie
+                {
+                    Health = GameSettings.Instance.SmallZombieHealth,
+                    Speed = GameSettings.Instance.SmallZombieSpeed,
+                    Tag = "smallZombie",
+                    MovementStrategy = new ChaseMovement(),
+                    PictureBox = new PictureBox
+                    {
+                        Size = new Size(70, 70),
+                        SizeMode = PictureBoxSizeMode.StretchImage,
+                        Image = Properties.Resources.SzDown
+                    }
+                };
+            }
+        }
         #endregion
 
         #region Game Objects
         private GameState _state;
-        private GameSettings _settings;
+        private Dictionary<ZombieType, IZombieFactory> _zombieFactories;
+        private List<Zombie> _zombies;
         private Random _rnd;
         #endregion
 
@@ -70,50 +167,15 @@ namespace ZombieSlayer
         private void InitializeGameSystems()
         {
             _state = new GameState();
-            _settings = new GameSettings();
             _rnd = new Random();
             _zombies = new List<Zombie>();
 
-            _zombieFactories = new Dictionary<ZombieType, Func<Zombie>>();
-            _zombieFactories.Add(ZombieType.Normal, () => new Zombie
+            _zombieFactories = new Dictionary<ZombieType, IZombieFactory>
             {
-                Health = 1,
-                Speed = 3,
-                Tag = "zombie",
-                PictureBox = new PictureBox
-                {
-                    Size = new Size(80, 80),
-                    SizeMode = PictureBoxSizeMode.StretchImage,
-                    Image = Properties.Resources.zDown
-                }
-            });
-
-            _zombieFactories.Add(ZombieType.Big, () => new Zombie
-            {
-                Health = 3,
-                Speed = 2,
-                Tag = "bigZombie",
-                HitsTaken = 0,
-                PictureBox = new PictureBox
-                {
-                    Size = new Size(110, 110),
-                    SizeMode = PictureBoxSizeMode.StretchImage,
-                    Image = Properties.Resources.BzDown
-                }
-            });
-
-            _zombieFactories.Add(ZombieType.Small, () => new Zombie
-            {
-                Health = 1,
-                Speed = 5,
-                Tag = "smallZombie",
-                PictureBox = new PictureBox
-                {
-                    Size = new Size(70, 70),
-                    SizeMode = PictureBoxSizeMode.StretchImage,
-                    Image = Properties.Resources.SzDown
-                }
-            });
+                { ZombieType.Normal, new NormalZombieFactory() },
+                { ZombieType.Big, new BigZombieFactory() },
+                { ZombieType.Small, new SmallZombieFactory() }
+            };
         }
 
         private void InitializeGame()
@@ -158,7 +220,7 @@ namespace ZombieSlayer
             txtAmmo.Text = "Ammo: 10";
             txtScore.Text = "Kills: 0";
 
-            for (int i = 0; i < _settings.ZombieSpawnCount; i++)
+            for (int i = 0; i < GameSettings.Instance.ZombieSpawnCount; i++)
             {
                 SpawnZombie();
             }
@@ -192,19 +254,19 @@ namespace ZombieSlayer
         {
             if (_state.GoLeft && player.Left > 0)
             {
-                player.Left -= _settings.PlayerSpeed;
+                player.Left -= GameSettings.Instance.PlayerSpeed;
             }
             if (_state.GoRight && player.Right < ClientSize.Width)
             {
-                player.Left += _settings.PlayerSpeed;
+                player.Left += GameSettings.Instance.PlayerSpeed;
             }
             if (_state.GoUp && player.Top > 47)
             {
-                player.Top -= _settings.PlayerSpeed;
+                player.Top -= GameSettings.Instance.PlayerSpeed;
             }
             if (_state.GoDown && player.Bottom < ClientSize.Height)
             {
-                player.Top += _settings.PlayerSpeed;
+                player.Top += GameSettings.Instance.PlayerSpeed;
             }
         }
 
@@ -218,7 +280,7 @@ namespace ZombieSlayer
         private void SpawnZombie()
         {
             ZombieType zombieType = GetRandomZombieType();
-            Zombie zombie = _zombieFactories[zombieType]();
+            Zombie zombie = _zombieFactories[zombieType].CreateZombie();
 
             zombie.PictureBox.Tag = zombie.Tag;
             zombie.PictureBox.Left = _rnd.Next(0, ClientSize.Width - zombie.PictureBox.Width);
@@ -244,23 +306,7 @@ namespace ZombieSlayer
         {
             foreach (Zombie zombie in _zombies.ToArray())
             {
-                if (zombie.PictureBox.Left > player.Left)
-                {
-                    zombie.PictureBox.Left -= zombie.Speed;
-                }
-                if (zombie.PictureBox.Right < player.Right)
-                {
-                    zombie.PictureBox.Left += zombie.Speed;
-                }
-                if (zombie.PictureBox.Top > player.Top)
-                {
-                    zombie.PictureBox.Top -= zombie.Speed;
-                }
-                if (zombie.PictureBox.Bottom < player.Bottom)
-                {
-                    zombie.PictureBox.Top += zombie.Speed;
-                }
-
+                zombie.MovementStrategy.Move(zombie, new Point(player.Left, player.Top));
                 SetZombieImage(zombie);
             }
         }
@@ -397,14 +443,14 @@ namespace ZombieSlayer
             {
                 if (bonus.Tag?.ToString() == "healing" && player.Bounds.IntersectsWith(bonus.Bounds))
                 {
-                    _state.PlayerHealth = Math.Min(100, _state.PlayerHealth + _settings.HealAmount);
+                    _state.PlayerHealth = Math.Min(100, _state.PlayerHealth + GameSettings.Instance.HealAmount);
                     _state.HealingBonusActive = false;
                     Controls.Remove(bonus);
                     bonus.Dispose();
                 }
                 else if (bonus.Tag?.ToString() == "ammo" && player.Bounds.IntersectsWith(bonus.Bounds))
                 {
-                    _state.Ammo += _settings.AmmoDropAmount;
+                    _state.Ammo += GameSettings.Instance.AmmoDropAmount;
                     Controls.Remove(bonus);
                     bonus.Dispose();
                 }
