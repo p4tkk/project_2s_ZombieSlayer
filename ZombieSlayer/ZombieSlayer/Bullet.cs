@@ -1,73 +1,120 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace ZombieSlayer
 {
-    internal class Bullet
+    /// <summary>
+    /// Представляет пулю, выстреленную игроком, с автоматическим движением и уничтожением при выходе за пределы экрана.
+    /// </summary>
+    internal class Bullet : IDisposable
     {
-        public string direction;
-        public int bulletLeft;
-        public int bulletTop;
+        private const int Speed = 20;
+        private const int BulletSize = 5;
 
-        private int speed = 20;
-        private PictureBox bullet = new PictureBox();
-        private Timer bulletTimer = new Timer();
+        private readonly PictureBox _bullet = new PictureBox();
+        private readonly Timer _bulletTimer = new Timer();
+        private bool _disposed;
 
+        /// <summary>
+        /// Направление движения пули (left, right, up, down).
+        /// </summary>
+        public string Direction { get; set; }
+
+        /// <summary>
+        /// Начальная позиция пули по горизонтали.
+        /// </summary>
+        public int BulletLeft { get; set; }
+
+        /// <summary>
+        /// Начальная позиция пули по вертикали.
+        /// </summary>
+        public int BulletTop { get; set; }
+
+        /// <summary>
+        /// Создаёт пулю и добавляет её на форму, начиная движение.
+        /// </summary>
+        /// <param name="form">Форма, на которой будет отображаться пуля.</param>
+        /// <exception cref="ArgumentNullException">Выбрасывается, если передана null форма.</exception>
         public void MakeBullet(Form form)
         {
-            // Настройка визуальных и функциональных параметров пули
-            bullet.BackColor = Color.White;
-            bullet.Size = new Size(5, 5);
-            bullet.Tag = "bullet";
-            bullet.Left = bulletLeft;
-            bullet.Top = bulletTop;
-            bullet.BringToFront();
+            if (form == null) throw new ArgumentNullException(nameof(form));
 
-            // Добавляем пулю на форму
-            form.Controls.Add(bullet);
+            _bullet.BackColor = Color.White;
+            _bullet.Size = new Size(BulletSize, BulletSize);
+            _bullet.Tag = "bullet";
+            _bullet.Left = BulletLeft;
+            _bullet.Top = BulletTop;
+            _bullet.BringToFront();
 
-            // Настраиваем таймер для движения пули
-            bulletTimer.Interval = speed;
-            bulletTimer.Tick += BulletTimerEvent;
-            bulletTimer.Start();
+            form.Controls.Add(_bullet);
+
+            _bulletTimer.Interval = Speed;
+            _bulletTimer.Tick += OnBulletTimerTick;
+            _bulletTimer.Start();
         }
 
-        private void BulletTimerEvent(object sender, EventArgs e)
+        /// <summary>
+        /// Обрабатывает событие таймера для передвижения пули.
+        /// </summary>
+        private void OnBulletTimerTick(object sender, EventArgs e)
         {
-
-            if (direction == "left")
+            switch (Direction)
             {
-                bullet.Left -= speed;
-            }
-            if (direction == "right")
-            {
-                bullet.Left += speed;
-            }
-            if (direction == "up")
-            {
-                bullet.Top -= speed;
-            }
-            if (direction == "down")
-            {
-                bullet.Top += speed;
+                case "left":
+                    _bullet.Left -= Speed;
+                    break;
+                case "right":
+                    _bullet.Left += Speed;
+                    break;
+                case "up":
+                    _bullet.Top -= Speed;
+                    break;
+                case "down":
+                    _bullet.Top += Speed;
+                    break;
             }
 
-            if(bullet.Left < 10 || bullet.Left > 1450 || bullet.Top < 10 || bullet.Top > 600)
+            if (_bullet.Left < 10 || _bullet.Left > 1450 ||
+                _bullet.Top < 10 || _bullet.Top > 600)
             {
-                bulletTimer.Stop();
-                bulletTimer.Dispose();
-                bullet.Dispose();
-                bulletTimer = null;
-                bullet = null;
+                Dispose();
             }
-
-
         }
 
+        /// <summary>
+        /// Освобождает ресурсы, используемые пулей.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Защищённая реализация освобождения ресурсов.
+        /// </summary>
+        /// <param name="disposing">Указывает, нужно ли освобождать управляемые ресурсы.</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed) return;
+
+            if (disposing)
+            {
+                _bulletTimer?.Stop();
+                _bulletTimer?.Dispose();
+                _bullet?.Dispose();
+            }
+
+            _disposed = true;
+        }
+
+        /// <summary>
+        /// Финализатор, вызываемый при сборке мусора, если Dispose не был вызван явно.
+        /// </summary>
+        ~Bullet()
+        {
+            Dispose(false);
+        }
     }
 }

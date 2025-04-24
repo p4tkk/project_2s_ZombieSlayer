@@ -164,6 +164,9 @@ namespace ZombieSlayer
             InitializeGame();
         }
 
+        /// <summary>
+        /// Инициализирует основные игровые системы, включая состояние игры, генератор случайных чисел, список зомби и фабрики зомби.
+        /// </summary>
         private void InitializeGameSystems()
         {
             _state = new GameState();
@@ -178,6 +181,9 @@ namespace ZombieSlayer
             };
         }
 
+        /// <summary>
+        /// Настраивает начальное состояние игры, включая свойства формы и спрайт игрока, и запускает новую игру.
+        /// </summary>
         private void InitializeGame()
         {
             this.KeyPreview = true;
@@ -186,13 +192,18 @@ namespace ZombieSlayer
             RestartGame();
         }
 
+        /// <summary>
+        /// Сбрасывает игру до начального состояния, удаляя зомби и бонусы, сбрасывая статистику игрока и создавая новых зомби.
+        /// </summary>
         private void RestartGame()
         {
+            // Очистка существующих зомби
             foreach (var zombie in _zombies.ToArray())
             {
                 RemoveZombie(zombie);
             }
 
+            // Удаление всех бонусных предметов и пуль
             foreach (Control control in Controls.OfType<PictureBox>().ToList())
             {
                 if (control.Tag?.ToString() == "healing" ||
@@ -220,6 +231,7 @@ namespace ZombieSlayer
             txtAmmo.Text = "Ammo: 10";
             txtScore.Text = "Kills: 0";
 
+            // Создание начальных зомби
             for (int i = 0; i < GameSettings.Instance.ZombieSpawnCount; i++)
             {
                 SpawnZombie();
@@ -228,6 +240,9 @@ namespace ZombieSlayer
             GameTimer.Start();
         }
 
+        /// <summary>
+        /// Основной игровой цикл, обновляющий состояние игры, включая игрока, зомби, пули, столкновения, бонусы и интерфейс.
+        /// </summary>
         private void MainTimerEvent(object sender, EventArgs e)
         {
             if (_state.GameOver)
@@ -250,6 +265,9 @@ namespace ZombieSlayer
             UpdateUI();
         }
 
+        /// <summary>
+        /// Обновляет позицию игрока на основе ввода и обеспечивает движение в пределах границ формы.
+        /// </summary>
         private void UpdatePlayer()
         {
             if (_state.GoLeft && player.Left > 0)
@@ -270,6 +288,9 @@ namespace ZombieSlayer
             }
         }
 
+        /// <summary>
+        /// Обновляет элементы пользовательского интерфейса, включая полосу здоровья, количество патронов и счет.
+        /// </summary>
         private void UpdateUI()
         {
             HealthBar.Value = _state.PlayerHealth;
@@ -277,6 +298,9 @@ namespace ZombieSlayer
             txtScore.Text = "Kills: " + _state.Score;
         }
 
+        /// <summary>
+        /// Создает нового зомби случайного типа в случайной позиции на форме.
+        /// </summary>
         private void SpawnZombie()
         {
             ZombieType zombieType = GetRandomZombieType();
@@ -302,8 +326,12 @@ namespace ZombieSlayer
                 return ZombieType.Small;
         }
 
+        /// <summary>
+        /// Обновляет позиции и внешний вид всех зомби, заставляя их преследовать игрока.
+        /// </summary>
         private void UpdateZombies()
         {
+            // Цикл для обновления движения и изображений всех зомби
             foreach (Zombie zombie in _zombies.ToArray())
             {
                 zombie.MovementStrategy.Move(zombie, new Point(player.Left, player.Top));
@@ -380,8 +408,12 @@ namespace ZombieSlayer
             // Bullets are updated via their individual timers
         }
 
+        /// <summary>
+        /// Проверяет столкновения между игроком, зомби и пулями, обновляя состояние игры при необходимости.
+        /// </summary>
         private void CheckCollisions()
         {
+            // Проверка столкновений игрока с зомби
             foreach (Zombie zombie in _zombies.ToArray())
             {
                 if (player.Bounds.IntersectsWith(zombie.PictureBox.Bounds))
@@ -397,6 +429,7 @@ namespace ZombieSlayer
                 }
             }
 
+            // Проверка столкновений пуль с зомби
             foreach (Control bullet in Controls.OfType<PictureBox>().ToList())
             {
                 if (bullet.Tag?.ToString() == "bullet")
@@ -431,6 +464,9 @@ namespace ZombieSlayer
             }
         }
 
+        /// <summary>
+        /// Обновляет состояние бонусов, включая создание и сбор аптечек и патронов.
+        /// </summary>
         private void UpdateBonuses()
         {
             if (_state.PlayerHealth < 10 && !_state.HealingBonusActive)
@@ -439,6 +475,7 @@ namespace ZombieSlayer
                 _state.HealingBonusActive = true;
             }
 
+            // Проверка столкновений игрока с бонусами
             foreach (Control bonus in Controls.OfType<PictureBox>().ToList())
             {
                 if (bonus.Tag?.ToString() == "healing" && player.Bounds.IntersectsWith(bonus.Bounds))
@@ -485,6 +522,9 @@ namespace ZombieSlayer
             ammo.BringToFront();
         }
 
+        /// <summary>
+        /// Создает и запускает пулю в указанном направлении, если у игрока есть патроны.
+        /// </summary>
         private void ShootBullet(string direction)
         {
             if (_state.Ammo <= 0)
@@ -557,6 +597,9 @@ namespace ZombieSlayer
             player.Image = Properties.Resources.DeadPlayer;
         }
 
+        /// <summary>
+        /// Обрабатывает нажатие клавиш для управления игроком, стрельбы, паузы и перезапуска игры.
+        /// </summary>
         private void KeyIsDown(object sender, KeyEventArgs e)
         {
             if (_state.GameOver)
@@ -622,6 +665,9 @@ namespace ZombieSlayer
             }
         }
 
+        /// <summary>
+        /// Переключает состояние паузы игры, останавливая или возобновляя игровой таймер.
+        /// </summary>
         private void TogglePause()
         {
             if (_state.GameOver)
