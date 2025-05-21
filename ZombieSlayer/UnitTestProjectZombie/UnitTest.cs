@@ -83,5 +83,28 @@ namespace UnitTestProjectZombie
 
             method.Invoke(_bullet, new object[] { null, EventArgs.Empty });
         }
+
+        [TestMethod]
+        public void SpawnAmmoBonus_CreatesAmmoInBounds()
+        {
+            Form1 _game = new Form1();
+            _game.ClientSize = new Size(800, 600);
+            try
+            {
+                _game.SpawnAmmoBonus();
+            } 
+            catch (Exception ex)
+            {
+                Assert.Fail("Ошибка при вызове SpawnAmmoBonus: " + ex.Message);
+            }
+            var ammo = _game.Controls.OfType<PictureBox>().FirstOrDefault(p => p.Tag?.ToString() == "ammo");
+
+            Assert.IsNotNull(ammo, "Бонус ammo не был добавлен на форму.");
+
+            Assert.IsTrue(ammo.Left >= 10 && ammo.Left <= 760,
+                $"Ammo.Left = {ammo.Left}, должен быть в пределах [10,760]");
+            Assert.IsTrue(ammo.Top >= 60 && ammo.Top <= 560,
+                $"Ammo.Top = {ammo.Top}, должен быть в пределах [60,560]");
+        }
     }
 }

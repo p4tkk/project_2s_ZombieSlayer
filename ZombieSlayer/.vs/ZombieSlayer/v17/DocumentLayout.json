@@ -26,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 389,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -58,6 +58,19 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UnitTest.cs",
+              "DocumentMoniker": "C:\\Users\\fadew\\Desktop\\Zombie\\ZombieSlayer\\UnitTestProjectZombie\\UnitTest.cs",
+              "RelativeDocumentMoniker": "UnitTestProjectZombie\\UnitTest.cs",
+              "ToolTip": "C:\\Users\\fadew\\Desktop\\Zombie\\ZombieSlayer\\UnitTestProjectZombie\\UnitTest.cs",
+              "RelativeToolTip": "UnitTestProjectZombie\\UnitTest.cs",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAUwFwAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-21T18:12:09.832Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 3,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\fadew\\Desktop\\Zombie\\ZombieSlayer\\ZombieSlayer\\Form1.cs",
@@ -67,19 +80,6 @@
               "ViewState": "AgIAAI8CAAAAAAAAAAArwMYBAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-12T14:27:47.129Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UnitTest.cs",
-              "DocumentMoniker": "C:\\Users\\fadew\\Desktop\\Zombie\\ZombieSlayer\\UnitTestProjectZombie\\UnitTest.cs",
-              "RelativeDocumentMoniker": "UnitTestProjectZombie\\UnitTest.cs",
-              "ToolTip": "C:\\Users\\fadew\\Desktop\\Zombie\\ZombieSlayer\\UnitTestProjectZombie\\UnitTest.cs",
-              "RelativeToolTip": "UnitTestProjectZombie\\UnitTest.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAADwv00AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-21T18:12:09.832Z",
               "EditorCaption": ""
             },
             {
