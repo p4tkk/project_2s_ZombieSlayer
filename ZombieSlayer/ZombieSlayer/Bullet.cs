@@ -7,9 +7,9 @@ namespace ZombieSlayer
     /// <summary>
     /// Представляет пулю, выстреленную игроком, с автоматическим движением и уничтожением при выходе за пределы экрана.
     /// </summary>
-    internal class Bullet : IDisposable
+    public class Bullet : IDisposable
     {
-        private const int Speed = 20;
+        public const int Speed = 20;
         private const int BulletSize = 5;
 
         private readonly PictureBox _bullet = new PictureBox();
@@ -89,6 +89,11 @@ namespace ZombieSlayer
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        public void SimulateMove()
+        {
+            OnBulletTimerTick(null, EventArgs.Empty);
         }
 
         /// <summary>

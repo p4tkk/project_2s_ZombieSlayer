@@ -1,0 +1,109 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\fadew\\Desktop\\Zombie\\ZombieSlayer\\TestBulletProject\\TestBulletProject.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\fadew\\Desktop\\Zombie\\ZombieSlayer\\TestBulletProject\\TestBulletProject.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\fadew\\Desktop\\Zombie\\ZombieSlayer\\TestBulletProject\\TestBulletProject.csproj",
+        "projectName": "TestBulletProject",
+        "projectPath": "C:\\Users\\fadew\\Desktop\\Zombie\\ZombieSlayer\\TestBulletProject\\TestBulletProject.csproj",
+        "packagesPath": "C:\\Users\\fadew\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\fadew\\Desktop\\Zombie\\ZombieSlayer\\TestBulletProject\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\fadew\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\fadew\\Desktop\\Zombie\\ZombieSlayer\\ZombieSlayer\\ZombieSlayer.csproj": {
+                "projectPath": "C:\\Users\\fadew\\Desktop\\Zombie\\ZombieSlayer\\ZombieSlayer\\ZombieSlayer.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "MSTest.TestAdapter": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.8.0, )"
+            },
+            "Microsoft.Playwright.MSTest": {
+              "target": "Package",
+              "version": "[1.27.1, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.407/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\fadew\\Desktop\\Zombie\\ZombieSlayer\\ZombieSlayer\\ZombieSlayer.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\fadew\\Desktop\\Zombie\\ZombieSlayer\\ZombieSlayer\\ZombieSlayer.csproj",
+        "projectName": "ZombieSlayer",
+        "projectPath": "C:\\Users\\fadew\\Desktop\\Zombie\\ZombieSlayer\\ZombieSlayer\\ZombieSlayer.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    }
+  }
+}

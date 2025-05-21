@@ -508,7 +508,7 @@ namespace ZombieSlayer
             healing.BringToFront();
         }
 
-        private void SpawnAmmoBonus()
+        public void SpawnAmmoBonus()
         {
             PictureBox ammo = new PictureBox
             {
