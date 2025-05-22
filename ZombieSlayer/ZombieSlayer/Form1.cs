@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
+using ZombieSlayer.Core;
 
 namespace ZombieSlayer
 {
@@ -22,23 +23,6 @@ namespace ZombieSlayer
             public int Ammo = 10;
             public int Score = 0;
             public bool HealingBonusActive = false;
-        }
-
-        private class GameSettings
-        {
-            public static readonly GameSettings Instance = new GameSettings();
-
-            public readonly int PlayerSpeed = 10;
-            public readonly int NormalZombieSpeed = 3;
-            public readonly int BigZombieSpeed = 2;
-            public readonly int SmallZombieSpeed = 5;
-            public readonly int BigZombieHealth = 3;
-            public readonly int SmallZombieHealth = 1;
-            public readonly int ZombieSpawnCount = 3;
-            public readonly int AmmoDropAmount = 5;
-            public readonly int HealAmount = 20;
-
-            private GameSettings() { }
         }
         #endregion
 
