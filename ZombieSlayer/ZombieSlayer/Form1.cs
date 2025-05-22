@@ -9,6 +9,9 @@ namespace ZombieSlayer
 {
     public partial class Form1 : Form
     {
+        public IEnumerable<PictureBox> HealingBonuses => 
+            Controls.OfType<PictureBox>().Where(p => p.Tag?.ToString() == "healing");
+
         #region Game State Classes
         private class GameState
         {
