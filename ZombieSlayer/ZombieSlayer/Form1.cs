@@ -43,9 +43,9 @@ namespace ZombieSlayer
         #endregion
 
         #region Zombie System
-        private enum ZombieType { Normal, Big, Small }
+        public enum ZombieType { Normal, Big, Small }
 
-        private class Zombie
+        public class Zombie
         {
             public PictureBox PictureBox;
             public int Health;
@@ -53,14 +53,15 @@ namespace ZombieSlayer
             public string Tag;
             public int HitsTaken;
             public IMovementStrategy MovementStrategy;
+            public bool IsDead => HitsTaken >= Health;
         }
 
-        private interface IMovementStrategy
+        public interface IMovementStrategy
         {
             void Move(Zombie zombie, Point playerPosition);
         }
 
-        private class ChaseMovement : IMovementStrategy
+        public class ChaseMovement : IMovementStrategy
         {
             public void Move(Zombie zombie, Point playerPosition)
             {
@@ -83,12 +84,12 @@ namespace ZombieSlayer
             }
         }
 
-        private interface IZombieFactory
+        public interface IZombieFactory
         {
             Zombie CreateZombie();
         }
 
-        private class NormalZombieFactory : IZombieFactory
+        public class NormalZombieFactory : IZombieFactory
         {
             public Zombie CreateZombie()
             {
@@ -108,7 +109,7 @@ namespace ZombieSlayer
             }
         }
 
-        private class BigZombieFactory : IZombieFactory
+        public class BigZombieFactory : IZombieFactory
         {
             public Zombie CreateZombie()
             {
@@ -129,7 +130,7 @@ namespace ZombieSlayer
             }
         }
 
-        private class SmallZombieFactory : IZombieFactory
+        public class SmallZombieFactory : IZombieFactory
         {
             public Zombie CreateZombie()
             {
@@ -165,7 +166,7 @@ namespace ZombieSlayer
         }
 
         /// <summary>
-        /// Инициализирует основные игровые системы, включая состояние игры, генератор случайных чисел, список зомби и фабрики зомби.
+        /// РРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚ РѕСЃРЅРѕРІРЅС‹Рµ РёРіСЂРѕРІС‹Рµ СЃРёСЃС‚РµРјС‹, РІРєР»СЋС‡Р°СЏ СЃРѕСЃС‚РѕСЏРЅРёРµ РёРіСЂС‹, РіРµРЅРµСЂР°С‚РѕСЂ СЃР»СѓС‡Р°Р№РЅС‹С… С‡РёСЃРµР», СЃРїРёСЃРѕРє Р·РѕРјР±Рё Рё С„Р°Р±СЂРёРєРё Р·РѕРјР±Рё.
         /// </summary>
         private void InitializeGameSystems()
         {
@@ -182,7 +183,7 @@ namespace ZombieSlayer
         }
 
         /// <summary>
-        /// Настраивает начальное состояние игры, включая свойства формы и спрайт игрока, и запускает новую игру.
+        /// РќР°СЃС‚СЂР°РёРІР°РµС‚ РЅР°С‡Р°Р»СЊРЅРѕРµ СЃРѕСЃС‚РѕСЏРЅРёРµ РёРіСЂС‹, РІРєР»СЋС‡Р°СЏ СЃРІРѕР№СЃС‚РІР° С„РѕСЂРјС‹ Рё СЃРїСЂР°Р№С‚ РёРіСЂРѕРєР°, Рё Р·Р°РїСѓСЃРєР°РµС‚ РЅРѕРІСѓСЋ РёРіСЂСѓ.
         /// </summary>
         private void InitializeGame()
         {
@@ -193,17 +194,17 @@ namespace ZombieSlayer
         }
 
         /// <summary>
-        /// Сбрасывает игру до начального состояния, удаляя зомби и бонусы, сбрасывая статистику игрока и создавая новых зомби.
+        /// РЎР±СЂР°СЃС‹РІР°РµС‚ РёРіСЂСѓ РґРѕ РЅР°С‡Р°Р»СЊРЅРѕРіРѕ СЃРѕСЃС‚РѕСЏРЅРёСЏ, СѓРґР°Р»СЏСЏ Р·РѕРјР±Рё Рё Р±РѕРЅСѓСЃС‹, СЃР±СЂР°СЃС‹РІР°СЏ СЃС‚Р°С‚РёСЃС‚РёРєСѓ РёРіСЂРѕРєР° Рё СЃРѕР·РґР°РІР°СЏ РЅРѕРІС‹С… Р·РѕРјР±Рё.
         /// </summary>
         private void RestartGame()
         {
-            // Очистка существующих зомби
+            // РћС‡РёСЃС‚РєР° СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёС… Р·РѕРјР±Рё
             foreach (var zombie in _zombies.ToArray())
             {
                 RemoveZombie(zombie);
             }
 
-            // Удаление всех бонусных предметов и пуль
+            // РЈРґР°Р»РµРЅРёРµ РІСЃРµС… Р±РѕРЅСѓСЃРЅС‹С… РїСЂРµРґРјРµС‚РѕРІ Рё РїСѓР»СЊ
             foreach (Control control in Controls.OfType<PictureBox>().ToList())
             {
                 if (control.Tag?.ToString() == "healing" ||
@@ -231,7 +232,7 @@ namespace ZombieSlayer
             txtAmmo.Text = "Ammo: 10";
             txtScore.Text = "Kills: 0";
 
-            // Создание начальных зомби
+            // РЎРѕР·РґР°РЅРёРµ РЅР°С‡Р°Р»СЊРЅС‹С… Р·РѕРјР±Рё
             for (int i = 0; i < GameSettings.Instance.ZombieSpawnCount; i++)
             {
                 SpawnZombie();
@@ -241,7 +242,7 @@ namespace ZombieSlayer
         }
 
         /// <summary>
-        /// Основной игровой цикл, обновляющий состояние игры, включая игрока, зомби, пули, столкновения, бонусы и интерфейс.
+        /// РћСЃРЅРѕРІРЅРѕР№ РёРіСЂРѕРІРѕР№ С†РёРєР», РѕР±РЅРѕРІР»СЏСЋС‰РёР№ СЃРѕСЃС‚РѕСЏРЅРёРµ РёРіСЂС‹, РІРєР»СЋС‡Р°СЏ РёРіСЂРѕРєР°, Р·РѕРјР±Рё, РїСѓР»Рё, СЃС‚РѕР»РєРЅРѕРІРµРЅРёСЏ, Р±РѕРЅСѓСЃС‹ Рё РёРЅС‚РµСЂС„РµР№СЃ.
         /// </summary>
         private void MainTimerEvent(object sender, EventArgs e)
         {
@@ -266,7 +267,7 @@ namespace ZombieSlayer
         }
 
         /// <summary>
-        /// Обновляет позицию игрока на основе ввода и обеспечивает движение в пределах границ формы.
+        /// РћР±РЅРѕРІР»СЏРµС‚ РїРѕР·РёС†РёСЋ РёРіСЂРѕРєР° РЅР° РѕСЃРЅРѕРІРµ РІРІРѕРґР° Рё РѕР±РµСЃРїРµС‡РёРІР°РµС‚ РґРІРёР¶РµРЅРёРµ РІ РїСЂРµРґРµР»Р°С… РіСЂР°РЅРёС† С„РѕСЂРјС‹.
         /// </summary>
         private void UpdatePlayer()
         {
@@ -289,7 +290,7 @@ namespace ZombieSlayer
         }
 
         /// <summary>
-        /// Обновляет элементы пользовательского интерфейса, включая полосу здоровья, количество патронов и счет.
+        /// РћР±РЅРѕРІР»СЏРµС‚ СЌР»РµРјРµРЅС‚С‹ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРѕРіРѕ РёРЅС‚РµСЂС„РµР№СЃР°, РІРєР»СЋС‡Р°СЏ РїРѕР»РѕСЃСѓ Р·РґРѕСЂРѕРІСЊСЏ, РєРѕР»РёС‡РµСЃС‚РІРѕ РїР°С‚СЂРѕРЅРѕРІ Рё СЃС‡РµС‚.
         /// </summary>
         private void UpdateUI()
         {
@@ -299,7 +300,7 @@ namespace ZombieSlayer
         }
 
         /// <summary>
-        /// Создает нового зомби случайного типа в случайной позиции на форме.
+        /// РЎРѕР·РґР°РµС‚ РЅРѕРІРѕРіРѕ Р·РѕРјР±Рё СЃР»СѓС‡Р°Р№РЅРѕРіРѕ С‚РёРїР° РІ СЃР»СѓС‡Р°Р№РЅРѕР№ РїРѕР·РёС†РёРё РЅР° С„РѕСЂРјРµ.
         /// </summary>
         private void SpawnZombie()
         {
@@ -327,11 +328,11 @@ namespace ZombieSlayer
         }
 
         /// <summary>
-        /// Обновляет позиции и внешний вид всех зомби, заставляя их преследовать игрока.
+        /// РћР±РЅРѕРІР»СЏРµС‚ РїРѕР·РёС†РёРё Рё РІРЅРµС€РЅРёР№ РІРёРґ РІСЃРµС… Р·РѕРјР±Рё, Р·Р°СЃС‚Р°РІР»СЏСЏ РёС… РїСЂРµСЃР»РµРґРѕРІР°С‚СЊ РёРіСЂРѕРєР°.
         /// </summary>
         private void UpdateZombies()
         {
-            // Цикл для обновления движения и изображений всех зомби
+            // Р¦РёРєР» РґР»СЏ РѕР±РЅРѕРІР»РµРЅРёСЏ РґРІРёР¶РµРЅРёСЏ Рё РёР·РѕР±СЂР°Р¶РµРЅРёР№ РІСЃРµС… Р·РѕРјР±Рё
             foreach (Zombie zombie in _zombies.ToArray())
             {
                 zombie.MovementStrategy.Move(zombie, new Point(player.Left, player.Top));
@@ -409,11 +410,11 @@ namespace ZombieSlayer
         }
 
         /// <summary>
-        /// Проверяет столкновения между игроком, зомби и пулями, обновляя состояние игры при необходимости.
+        /// РџСЂРѕРІРµСЂСЏРµС‚ СЃС‚РѕР»РєРЅРѕРІРµРЅРёСЏ РјРµР¶РґСѓ РёРіСЂРѕРєРѕРј, Р·РѕРјР±Рё Рё РїСѓР»СЏРјРё, РѕР±РЅРѕРІР»СЏСЏ СЃРѕСЃС‚РѕСЏРЅРёРµ РёРіСЂС‹ РїСЂРё РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚Рё.
         /// </summary>
         private void CheckCollisions()
         {
-            // Проверка столкновений игрока с зомби
+            // РџСЂРѕРІРµСЂРєР° СЃС‚РѕР»РєРЅРѕРІРµРЅРёР№ РёРіСЂРѕРєР° СЃ Р·РѕРјР±Рё
             foreach (Zombie zombie in _zombies.ToArray())
             {
                 if (player.Bounds.IntersectsWith(zombie.PictureBox.Bounds))
@@ -429,7 +430,7 @@ namespace ZombieSlayer
                 }
             }
 
-            // Проверка столкновений пуль с зомби
+            // РџСЂРѕРІРµСЂРєР° СЃС‚РѕР»РєРЅРѕРІРµРЅРёР№ РїСѓР»СЊ СЃ Р·РѕРјР±Рё
             foreach (Control bullet in Controls.OfType<PictureBox>().ToList())
             {
                 if (bullet.Tag?.ToString() == "bullet")
@@ -465,7 +466,7 @@ namespace ZombieSlayer
         }
 
         /// <summary>
-        /// Обновляет состояние бонусов, включая создание и сбор аптечек и патронов.
+        /// РћР±РЅРѕРІР»СЏРµС‚ СЃРѕСЃС‚РѕСЏРЅРёРµ Р±РѕРЅСѓСЃРѕРІ, РІРєР»СЋС‡Р°СЏ СЃРѕР·РґР°РЅРёРµ Рё СЃР±РѕСЂ Р°РїС‚РµС‡РµРє Рё РїР°С‚СЂРѕРЅРѕРІ.
         /// </summary>
         private void UpdateBonuses()
         {
@@ -475,7 +476,7 @@ namespace ZombieSlayer
                 _state.HealingBonusActive = true;
             }
 
-            // Проверка столкновений игрока с бонусами
+            // РџСЂРѕРІРµСЂРєР° СЃС‚РѕР»РєРЅРѕРІРµРЅРёР№ РёРіСЂРѕРєР° СЃ Р±РѕРЅСѓСЃР°РјРё
             foreach (Control bonus in Controls.OfType<PictureBox>().ToList())
             {
                 if (bonus.Tag?.ToString() == "healing" && player.Bounds.IntersectsWith(bonus.Bounds))
@@ -523,7 +524,7 @@ namespace ZombieSlayer
         }
 
         /// <summary>
-        /// Создает и запускает пулю в указанном направлении, если у игрока есть патроны.
+        /// РЎРѕР·РґР°РµС‚ Рё Р·Р°РїСѓСЃРєР°РµС‚ РїСѓР»СЋ РІ СѓРєР°Р·Р°РЅРЅРѕРј РЅР°РїСЂР°РІР»РµРЅРёРё, РµСЃР»Рё Сѓ РёРіСЂРѕРєР° РµСЃС‚СЊ РїР°С‚СЂРѕРЅС‹.
         /// </summary>
         private void ShootBullet(string direction)
         {
@@ -598,7 +599,7 @@ namespace ZombieSlayer
         }
 
         /// <summary>
-        /// Обрабатывает нажатие клавиш для управления игроком, стрельбы, паузы и перезапуска игры.
+        /// РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ РЅР°Р¶Р°С‚РёРµ РєР»Р°РІРёС€ РґР»СЏ СѓРїСЂР°РІР»РµРЅРёСЏ РёРіСЂРѕРєРѕРј, СЃС‚СЂРµР»СЊР±С‹, РїР°СѓР·С‹ Рё РїРµСЂРµР·Р°РїСѓСЃРєР° РёРіСЂС‹.
         /// </summary>
         private void KeyIsDown(object sender, KeyEventArgs e)
         {
@@ -666,7 +667,7 @@ namespace ZombieSlayer
         }
 
         /// <summary>
-        /// Переключает состояние паузы игры, останавливая или возобновляя игровой таймер.
+        /// РџРµСЂРµРєР»СЋС‡Р°РµС‚ СЃРѕСЃС‚РѕСЏРЅРёРµ РїР°СѓР·С‹ РёРіСЂС‹, РѕСЃС‚Р°РЅР°РІР»РёРІР°СЏ РёР»Рё РІРѕР·РѕР±РЅРѕРІР»СЏСЏ РёРіСЂРѕРІРѕР№ С‚Р°Р№РјРµСЂ.
         /// </summary>
         private void TogglePause()
         {
