@@ -1,0 +1,2 @@
+C:\Users\PC\Desktop\трпо\project_2s_ZombieSlayer-main\ZombieSlayer\ZombieSlayer.Tests\obj\Debug\ZombieSlayer.Tests.csproj.AssemblyReference.cache
+C:\Users\PC\Desktop\трпо\project_2s_ZombieSlayer-main\ZombieSlayer\ZombieSlayer.Tests\obj\Debug\ZombieSlayer.Tests.csproj.CoreCompileInputs.cache
