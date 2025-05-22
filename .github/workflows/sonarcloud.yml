@@ -1,0 +1,32 @@
+name: SonarCloud Scan
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  build:
+    name: Build and analyze
+    runs-on: windows-latest  # важно для .NET проектов
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # нужно для анализа истории коммитов
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'  # укажите вашу версию .NET
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Run SonarCloud analysis
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # автоматически создаётся GitHub
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   # нужно добавить в Secrets репозитория
